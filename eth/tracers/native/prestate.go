@@ -254,7 +254,9 @@ func (t *prestateTracer) OnTxEnd(receipt *types.Receipt, err error) {
     	    delete(t.SSTORE,addr)
     	}
     }
-    t.callstack[0].GasUsed = receipt.GasUsed
+	if receipt != nil {
+		t.callstack[0].GasUsed = receipt.GasUsed
+	}
 }
 
 // GetResult returns the json-encoded nested list of call traces, and any

@@ -49,6 +49,7 @@ func newNoopTracer(ctx *tracers.Context, cfg json.RawMessage, chainConfig *param
 		Hooks: &tracing.Hooks{
 			OnOpcode:                   t.OnOpcode,
 			OnEnter:                    t.OnEnter,
+			OnTxStart:       			t.OnTxStart,
 		},
 		GetResult: t.GetResult,
 		Stop:      t.Stop,
@@ -70,6 +71,10 @@ func (t *noopTracer) OnOpcode(pc uint64, opcode byte, gas, cost uint64, scope tr
     default:
         t.Op = "other"
     }
+}
+
+func (t *prestateTracer) OnTxStart(env *tracing.VMContext, tx *types.Transaction, from common.Address) {
+	t.List = make(map[common.Address]common.Address)
 }
 
 // CaptureEnter is called when EVM enters a new scope (via call, create or selfdestruct).

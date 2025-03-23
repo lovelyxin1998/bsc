@@ -226,6 +226,7 @@ func (t *prestateTracer) OnExit(depth int, output []byte, gasUsed uint64, err er
 func (t *prestateTracer) OnTxStart(env *tracing.VMContext, tx *types.Transaction, from common.Address) {
 	t.env = env
 	t.gasLimit = tx.Gas()
+	t.List = make(map[common.Address]common.Address)
 }
 
 func (t *prestateTracer) OnsystemTxEnd(intrinsicGas uint64) {

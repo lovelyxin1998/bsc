@@ -21,6 +21,7 @@ import (
 	"math/big"
 
     "github.com/ethereum/go-ethereum/core/vm"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/tracing"
 
@@ -73,7 +74,7 @@ func (t *noopTracer) OnOpcode(pc uint64, opcode byte, gas, cost uint64, scope tr
     }
 }
 
-func (t *prestateTracer) OnTxStart(env *tracing.VMContext, tx *types.Transaction, from common.Address) {
+func (t *noopTracer) OnTxStart(env *tracing.VMContext, tx *types.Transaction, from common.Address) {
 	t.List = make(map[common.Address]common.Address)
 }
 

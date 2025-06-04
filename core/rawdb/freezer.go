@@ -22,11 +22,10 @@ import (
 	"math"
 	"os"
 	"path/filepath"
+	"slices"
 	"sync"
 	"sync/atomic"
 	"time"
-
-	"golang.org/x/exp/slices"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethdb"
@@ -387,8 +386,8 @@ func (f *Freezer) TruncateTail(tail uint64) (uint64, error) {
 	return old, nil
 }
 
-// Sync flushes all data tables to disk.
-func (f *Freezer) Sync() error {
+// SyncAncient flushes all data tables to disk.
+func (f *Freezer) SyncAncient() error {
 	var errs []error
 	for _, table := range f.tables {
 		if err := table.Sync(); err != nil {
@@ -601,7 +600,7 @@ func (f *Freezer) ResetTable(kind string, startAt uint64, onlyEmpty bool) error 
 		return nil
 	}
 
-	if err := f.Sync(); err != nil {
+	if err := f.SyncAncient(); err != nil {
 		return err
 	}
 	nt, err := t.resetItems(startAt - f.offset)

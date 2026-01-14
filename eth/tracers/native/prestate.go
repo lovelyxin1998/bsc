@@ -18,7 +18,6 @@ package native
 
 import (
 	"encoding/json"
-	"errors"
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"

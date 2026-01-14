@@ -29,8 +29,6 @@ var (
 	// ErrNoGenesis is returned when there is no Genesis Block.
 	ErrNoGenesis = errors.New("genesis not found in chain")
 
-	errSideChainReceipts = errors.New("side blocks can't be accepted as ancient chain data")
-
 	// ErrAncestorHasNotBeenVerified is returned when block - 11 has not been verified by the remote verifier.
 	ErrAncestorHasNotBeenVerified = errors.New("block ancestor has not been verified")
 
@@ -130,6 +128,9 @@ var (
 	// Message validation errors:
 	ErrEmptyAuthList   = errors.New("EIP-7702 transaction with empty auth list")
 	ErrSetCodeTxCreate = errors.New("EIP-7702 transaction cannot be used to create contract")
+
+	// -- EIP-7825 errors --
+	ErrGasLimitTooHigh = errors.New("transaction gas limit too high")
 )
 
 // EIP-7702 state transition errors.
